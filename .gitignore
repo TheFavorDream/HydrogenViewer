@@ -1,0 +1,12 @@
+.vs/
+HydrogenViewer.sln
+premake5.exe
+bin/
+bin-obj/
+Hydrogen/Hydrogen.vcxproj.filters
+Hydrogen/Hydrogen.vcxproj.user
+Hydrogen/Hydrogen.vcxproj
+
+HydrogenViewer/HydrogenViewer.vcxproj
+HydrogenViewer/HydrogenViewer.vcxproj.filters
+HydrogenViewer/HydrogenViewer.vcxproj.user
