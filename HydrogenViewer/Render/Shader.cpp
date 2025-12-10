@@ -138,13 +138,13 @@ namespace HydrogenViewer
 		glProgramUniform3i(m_ProgramID, Location, pValue1, pValue2, pValue3);
 	}
 
-//	void Shader::SetUniformMat4(const char * pName, glm::mat4 & pValue) const
-//	{
-//		int Location = GetUniformLocation(pName);
-//		if (Location < 0)
-//			return;
-//		glProgramUniformMatrix4fv(m_ProgramID, Location, 1, GL_FALSE, glm::value_ptr(pValue));
-//	}
+	void Shader::SetUniformMat4(const char * pName, glm::mat4 & pValue) const
+	{
+		int Location = GetUniformLocation(pName);
+		if (Location < 0)
+			return;
+		glProgramUniformMatrix4fv(m_ProgramID, Location, 1, GL_FALSE, glm::value_ptr(pValue));
+	}
 
 	int32 Shader::GetUniformLocation(const char * pName) const
 	{

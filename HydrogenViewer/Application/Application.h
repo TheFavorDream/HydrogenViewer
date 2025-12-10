@@ -8,6 +8,7 @@
 #include "Render/Shader.h"
 #include "Event/Keyboard.h"
 #include "Event/Mouse.h"
+#include "Camera/Camera.h"
 
 namespace HydrogenViewer
 {
@@ -36,6 +37,8 @@ namespace HydrogenViewer
 		Shader m_Shader;
 		VertexArray m_VertexArray;
 		VertexBuffer m_VertexBuffer;
+
+		Camera m_Camera;
 
 		bool m_IsRunning;
 	};

@@ -51,7 +51,8 @@ namespace HydrogenViewer
 		static bool m_RawMotion;
 		//Cursor State:
 		static double m_X, m_Y;
-		static double m_OffsetX, m_OffsetY;
+		static float m_OffsetX, m_OffsetY;
+		static float m_LastX, m_LastY;
 
 		//Button State:
 		static Event m_RightBtn;

@@ -45,8 +45,6 @@ namespace HydrogenViewer
 
 		//Configure the keyboard and keys
 		Keyboard::InitKeyboard(m_Window.GetWindow());
-		Keyboard::SetKeyEventHint(GLFW_KEY_W, PRESS_ONLY);
-		Keyboard::SetKeyEventHint(GLFW_KEY_S, PRESS_RELEASE);
 
 		//Configure the Mouse:
 		Mouse::InitMouse(m_Window.GetWindow());
@@ -64,12 +62,16 @@ namespace HydrogenViewer
 		m_VertexArray.AddLayout(GL_FLOAT, 3, GL_FALSE, sizeof(float)*9);
 		m_VertexArray.EnableLayouts(m_VertexBuffer);
 
+
+		m_Camera.SetupCamera(45.0f, glm::vec3(0.0f, 0.0f, 3.0f), float(m_Window.GetWidth()/m_Window.GetHeight()));
 		m_IsRunning = true;
 	}
 
 	void Application::Event()
 	{
 
+		m_Camera.HandleCameraMovement();
+		m_Camera.HandleCameraLooking();
 
 		glfwPollEvents();
 		m_IsRunning = !glfwWindowShouldClose(m_Window.GetWindow());
@@ -77,11 +79,21 @@ namespace HydrogenViewer
 
 	void Application::Update()
 	{
+		glm::mat4 Model = glm::mat4(1.0f);
+		//Model = glm::translate(Model, glm::vec3(0.5f, 0.0f, -0.8f));
+		//Model = glm::rotate(Model, glm::radians(45.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+		//Model = glm::scale(Model, glm::vec3(0.1f));
+
+
+		m_Shader.SetUniformMat4("Model", Model);
+		m_Shader.SetUniformMat4("View", m_Camera.GetView());
+		m_Shader.SetUniformMat4("Projection", m_Camera.GetProjection());
+
 	}
 
 	void Application::Render()
 	{
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		m_VertexArray.Bind();

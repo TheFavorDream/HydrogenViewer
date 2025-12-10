@@ -4,8 +4,10 @@ namespace HydrogenViewer
 {
 	double		Mouse::m_X = 0.0f;
 	double		Mouse::m_Y = 0.0f;
-	double		Mouse::m_OffsetY = 0.0f;
-	double		Mouse::m_OffsetX = 0.0f;
+	float		Mouse::m_OffsetY = 0.0f;
+	float		Mouse::m_OffsetX = 0.01f;
+	float		Mouse::m_LastY = 0.0f;
+	float		Mouse::m_LastX = 0.0f;
 	bool		Mouse::m_CameraMode = false;
 	bool		Mouse::m_RawMotion = false;
 	int		    Mouse::m_ScrollY = 0;
@@ -26,22 +28,25 @@ namespace HydrogenViewer
 		m_RawMotion = glfwRawMouseMotionSupported();
 
 		if (m_RawMotion)
-			glfwSetInputMode(m_WindowRef, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+			glfwSetInputMode(m_WindowRef, GLFW_RAW_MOUSE_MOTION, GL_TRUE);
 	}
 
 	void Mouse::MouseCursorCallBack(GLFWwindow * pWindow, double pMouseX, double pMouseY)
 	{
+
 		if (m_CameraMode)
 		{
-			Mouse::m_OffsetX = pMouseX;
-			Mouse::m_OffsetY = pMouseY;
-
+			Mouse::m_OffsetX =  -(m_LastX - pMouseX);
+			Mouse::m_OffsetY =  (m_LastY - pMouseY);
+			m_LastX = pMouseX;
+			m_LastY = pMouseY;
 		}
 		else 
 		{
 			Mouse::m_X = pMouseX;
 			Mouse::m_Y = pMouseY;
 		}
+
 	}
 
 	void Mouse::MouseButtonCallBack(GLFWwindow* pWindow, int pButton, int pAction, int pMods)
@@ -99,9 +104,17 @@ namespace HydrogenViewer
 
 	double Mouse::GetCursorY(){ return m_Y; }
 
-	double Mouse::GetOffsetX(){ return m_OffsetX; }
+	double Mouse::GetOffsetX(){  
+		double Offset = double(m_OffsetX);
+		m_OffsetX = 0.0f;
+		return Offset;
+	}
 
-	double Mouse::GetOffsetY() { return m_OffsetY; }
+	double Mouse::GetOffsetY() { 
+		double Offset = double(m_OffsetY);
+		m_OffsetY = 0.0f;
+		return Offset;
+	}
 
 	State Mouse::GetRightKeyState() { return m_RightBtn.KeyState; }
 
