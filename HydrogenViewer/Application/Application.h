@@ -1,14 +1,17 @@
 #pragma once
 
 #include "Common.h"
-#include "glew.h"
+#include "Hydrogen.h"
 #include "Window.h"
-#include "Render/VertexBuffer.h"
-#include "Render/VertexArray.h"
-#include "Render/Shader.h"
 #include "Event/Keyboard.h"
 #include "Event/Mouse.h"
 #include "Camera/Camera.h"
+#include "Render/Shader.h"
+
+//ImGui (temp)
+#include "imgui.h"
+#include "imgui_impl_opengl3.h"
+#include "imgui_impl_glfw.h"
 
 namespace HydrogenViewer
 {
@@ -26,6 +29,7 @@ namespace HydrogenViewer
 		void Event();
 		void Update();
 		void Render();
+		void RenderUI();
 
 	private:
 
@@ -35,10 +39,9 @@ namespace HydrogenViewer
 		Window m_Window;
 
 		Shader m_Shader;
-		VertexArray m_VertexArray;
-		VertexBuffer m_VertexBuffer;
-
 		Camera m_Camera;
+
+		Hydrogen::Model* m_Model = NULL;
 
 		bool m_IsRunning;
 	};

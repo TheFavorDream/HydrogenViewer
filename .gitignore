@@ -6,7 +6,7 @@ bin-obj/
 Hydrogen/Hydrogen.vcxproj.filters
 Hydrogen/Hydrogen.vcxproj.user
 Hydrogen/Hydrogen.vcxproj
-
+HydrogenViewer/imgui.ini
 HydrogenViewer/HydrogenViewer.vcxproj
 HydrogenViewer/HydrogenViewer.vcxproj.filters
 HydrogenViewer/HydrogenViewer.vcxproj.user

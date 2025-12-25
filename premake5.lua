@@ -40,17 +40,20 @@ workspace "HydrogenViewer"
 
         includedirs{
             "./3rdParty/glfw/include/",
-            "./3rdParty/glew/",
-            "./HydrogenViewer/"
+            "./3rdParty/imgui",
+            "./HydrogenViewer/",
+            "./Hydrogen/"
+
         }
 
         libdirs{
 			"./bin/"..OutputDir.."/glfw",
-			"./3rdParty/glew/",
-
+			"./bin/"..OutputDir.."/imgui",
+            "./bin/"..OutputDir.."/Hydrogen",
+            "./Hydrogen/Source/Glew"
         }
 
-        links {"opengl32", "glew32s", "glfw","kernel32", "user32" , "gdi32", "winspool", "comdlg32", "advapi32", "shell32","ole32", 
+        links {"Hydrogen","opengl32", "glew32s","imgui", "glfw","kernel32", "user32" , "gdi32", "winspool", "comdlg32", "advapi32", "shell32","ole32", 
 		"oleaut32", "uuid", "odbc32", "odbccp32"}
 
 
@@ -59,11 +62,16 @@ workspace "HydrogenViewer"
         kind "StaticLib"
         language "C++"
 
+
+        targetdir ("./bin/"..OutputDir.."/Hydrogen")
+        objdir ("./bin-obj/"..OutputDir.."/Hydrogen")
         files{
             "./Hydrogen/**.cpp",
             "./Hydrogen/**.h"
         }
         
+        defines {"GLEW_STATIC"}
+
         filter {"configurations:Debug"}
             defines {"HYD_DEBUG"}
             optimize "off"
@@ -76,6 +84,10 @@ workspace "HydrogenViewer"
         includedirs{
             "./Hydrogen"
         }
+        libdirs{
+            "./Hydrogen/Source/Glew"
+        }
+        links {"opengl32", "glew32"}
 
     project "glfw"
         location "./3rdParty/glfw"
@@ -102,6 +114,37 @@ workspace "HydrogenViewer"
 		filter("configurations:Release")
 			optimize "On"
 			defines {"_GLFW_BUILD_DLL"}
+
+		filter {"system:windows", "configurations:Debug"}
+			buildoptions {"/MDd"}
+		filter {"system:windows", "configurations:Release"}
+			buildoptions {"/MT"}
+
+
+    project "ImGui"
+       location "./3rdParty/Imgui"
+        kind "StaticLib"
+		language "C++"
+
+        targetdir ("./bin/"..OutputDir.."/Imgui")
+        objdir ("./bin-obj/"..OutputDir.."/imgui")
+
+
+        files {
+            "./3rdParty/imgui/**.cpp",
+            "./3rdParty/imgui/**.h"
+        }
+
+        includedirs{
+            "./3rdParty/glfw/include/"
+        }
+
+		filter("configurations:Debug")
+			symbols "On"
+
+		filter("configurations:Release")
+			optimize "On"
+
 
 		filter {"system:windows", "configurations:Debug"}
 			buildoptions {"/MDd"}

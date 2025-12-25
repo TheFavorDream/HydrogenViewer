@@ -1,5 +1,5 @@
 #pragma once
-#include "../../Hydrogen.h"
+#include "../Common.h"
 
 namespace Hydrogen
 {

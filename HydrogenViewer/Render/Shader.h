@@ -7,7 +7,7 @@
 */
 #pragma once
 
-#include "glew.h"
+#include "Hydrogen.h"
 #include <unordered_map>
 #include <vector>
 #include <string>

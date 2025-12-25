@@ -2,20 +2,37 @@
 
 namespace Hydrogen
 {
-	Model* Loader::Load(std::string pModelPath, int pFlag = 0)
-	{
 
+	SupportedAPIs Loader::m_CurrentAPI;
+
+	int Loader::SetUpHydrogen(uint32 pGraphicalAPI)
+	{
+		if (pGraphicalAPI < 0 || pGraphicalAPI > OPENGL)
+			return HYD_INVALID_API;
+
+		m_CurrentAPI = (SupportedAPIs)pGraphicalAPI;
+
+		switch (m_CurrentAPI)
+		{
+		case OPENGL:
+			if (glewInit() != 0)
+				return HYD_GLEW_FAILED;
+			break;
+		}
+
+		return HYD_OK;
 	}
 
-
-	Model * Loader::Load(const std::string & pModelPath, int pFlag)
+	Model* Loader::Load(std::string pModelPath, int pFlag)
 	{
-		return nullptr;
+		return new Model(pModelPath);
 	}
-
 
 	int Loader::Free(Model ** pModel)
 	{
-		return 0;
+		(*pModel)->Free();
+		delete *pModel;
+		*pModel = 0;
+		return HYD_OK;
 	}
 };

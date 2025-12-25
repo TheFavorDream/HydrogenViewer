@@ -17,8 +17,10 @@ namespace HydrogenViewer
 		void HandleCameraMovement();
 		void HandleCameraLooking();
 
-		inline  glm::mat4& GetView() { return m_View; }
-		inline  glm::mat4& GetProjection() { return m_Projection; }
+		void DisableCameraMovement(bool pDisableCamera);
+
+		glm::mat4& GetView();
+		glm::mat4& GetProjection();
 
 	private:
 
@@ -34,13 +36,14 @@ namespace HydrogenViewer
 
 		float m_Sensitivity = 0.1f;
 
-
+		bool m_CameraLocked = false;
 		float m_Yaw = 0.0f;
 		float m_Pitch = 0.0f;
 
 		glm::vec3 m_Position;
 		glm::vec3 m_Front;
 		glm::vec3 m_Up;
+		glm::vec3 m_Right;
 
 		glm::mat4 m_View;
 		glm::mat4 m_Projection;

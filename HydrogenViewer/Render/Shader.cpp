@@ -143,7 +143,7 @@ namespace HydrogenViewer
 		int Location = GetUniformLocation(pName);
 		if (Location < 0)
 			return;
-		glProgramUniformMatrix4fv(m_ProgramID, Location, 1, GL_FALSE, glm::value_ptr(pValue));
+		glProgramUniformMatrix4fv(m_ProgramID, Location, 1, GL_TRUE, glm::value_ptr(pValue));
 	}
 
 	int32 Shader::GetUniformLocation(const char * pName) const
